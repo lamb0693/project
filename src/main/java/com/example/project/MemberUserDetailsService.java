@@ -1,6 +1,5 @@
-import com.example.project.MemberAuthDTO;
-import com.example.project.MemberService;
-import com.example.project.MemberUserDetails;
+package com.example.project;
+
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -12,7 +11,8 @@ import org.springframework.stereotype.Service;
 @AllArgsConstructor
 @Log4j2
 public class MemberUserDetailsService implements UserDetailsService {
-    private MemberService memberService
+    private MemberService memberService;
+
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         if( username == null) log.error("*** loadUserByUsername@MMemberUserDetailsService :  username null" );
