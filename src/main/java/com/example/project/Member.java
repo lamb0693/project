@@ -9,7 +9,7 @@ import lombok.Setter;
 @Getter
 public class Member {
     @Id
-    @Column(length=20, nullable = false)
+    @Column(length=20, nullable = false, unique = true)
     private String username;
 
     @Column

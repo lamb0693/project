@@ -7,5 +7,5 @@ import org.springframework.stereotype.Service;
 public interface MemberService {
     public void register(String name, String password, PasswordEncoder passwordEncoder) throws Exception;
 
-    public MemberAuthDTO getMember(String username);
+    public MemberAuthDTO getMember(String username) throws Exception;
 }

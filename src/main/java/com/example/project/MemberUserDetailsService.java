@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 @AllArgsConstructor
 @Log4j2
 public class MemberUserDetailsService implements UserDetailsService {
-    private MemberService memberService;
+    private MemberRepository memberRepository;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -20,9 +20,12 @@ public class MemberUserDetailsService implements UserDetailsService {
 
         log.info("*** loadUserByUsername@MemberUserDetailsService :  username : {}", username );
 
-        MemberAuthDTO memberAuthDTO = memberService.getMember(username);
+        Member member = memberRepository.findByUsername(username);
+        if(member == null) throw new UsernameNotFoundException("user name does not exist");
 
-        if(memberAuthDTO == null) throw new UsernameNotFoundException("No User with such username");
+        MemberAuthDTO memberAuthDTO = new MemberAuthDTO();
+        memberAuthDTO.setUsername(member.getUsername());
+        memberAuthDTO.setPassword(member.getPassword());
 
         MemberUserDetails memberUserDetails = new MemberUserDetails(memberAuthDTO);
         log.info("*****" + memberUserDetails.toString());
